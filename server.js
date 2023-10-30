@@ -16,9 +16,11 @@ app.get('*', (req, res) => {
   const context = {};
 
   const appHTML = renderToString(
-    <StaticRouter location={req.url} context={context}>
-      <App />
-    </StaticRouter>
+    React.createElement(
+      StaticRouter,
+      { location: req.url, context },
+      React.createElement(App)
+    )
   );
 
   const helmet = Helmet.renderStatic();
@@ -38,7 +40,7 @@ app.get('*', (req, res) => {
   `);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4500;
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
